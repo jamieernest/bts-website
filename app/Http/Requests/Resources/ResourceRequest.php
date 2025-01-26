@@ -12,7 +12,7 @@ class ResourceRequest extends FormRequest
      *
      * @var string
      */
-    const FILE_RULES = 'mimes:pdf|max:50000';
+    const FILE_RULES = 'mimes:pdf,xlsx|max:50000';
 
     /**
      * Define the default messages for using files.
@@ -22,7 +22,7 @@ class ResourceRequest extends FormRequest
     const FILE_MESSAGES = [
         'file.required'    => 'Select a file to upload',
         'file.required_if' => 'Select a file to upload',
-        'file.mimes'       => 'Only PDFs are currently supported',
+        'file.mimes'       => 'Only PDFs and Excel Files are currently supported',
         'file.max'         => 'Maximum file size is 50MB',
     ];
 

@@ -46,15 +46,13 @@ class Issue extends Model
     }
 
     /**
-     * Get the file's extension. As PDFs are the only file type
-     * currently supported there is no logic here; however it
-     * does provide flexibility for the future.
+     * Get the file's extension.
      *
      * @return string
      */
     public function getFileExtension()
     {
-        return $this->resource->isFile() ? 'pdf' : '';
+        return $this->resource->isFile() ? pathinfo($this->resource->getFilename(), PATHINFO_EXTENSION) : '';
     }
 
     /**

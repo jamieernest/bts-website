@@ -102,7 +102,7 @@ class ResourceController extends Controller
     }
 
     /**
-     * View a resource.
+     * View a resource. Downloads if it is an Excel file.
      *
      * @param $id
      *
@@ -111,7 +111,10 @@ class ResourceController extends Controller
     public function view($id)
     {
         $resource = $this->getResourceWithAccessCheck($id);
-        return view('resources.view')->with('resource', $resource);
+        if($resource->isFile() && $resource->getFileExtension() == 'xlsx') {
+            return view('resources.download')->with('resource', $resource);
+        }
+        else return view('resources.view')->with('resource', $resource);
     }
 
     /**

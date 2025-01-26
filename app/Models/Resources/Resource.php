@@ -462,9 +462,15 @@ class Resource extends Model
      */
     public function getHeaders()
     {
-        if ($this->isFile()) {
+        if ($this->isFile() && $this->getFileExtension() == 'pdf') {
             return [
                 'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . (static::sanitised($this->title) . '.' . $this->getFileExtension()) . '"',
+                'Content-Length'      => filesize($this->getFullPath()),
+            ];
+        } else if ($this->isFile() && $this->getFileExtension() == 'xlsx') {
+            return [
+                'Content-Type'        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 'Content-Disposition' => 'inline; filename="' . (static::sanitised($this->title) . '.' . $this->getFileExtension()) . '"',
                 'Content-Length'      => filesize($this->getFullPath()),
             ];
